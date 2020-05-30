@@ -1,17 +1,24 @@
 # FileDownloader
+
 _A bunch of scripts do download multiple files programmatically_
 
 ## Script Usage
+
 The following commands will download all files in `myfiles.filelist` to the directory `./temp`.
+
 ### Linux
+
 `./filedownloader.sh https://example.com/myfiles.filelist ./temp`<br>
 (This tool uses requires wget to download the files)
+
 ### Windows
-**NOT IMPLEMENTED YET! - Comming soon**
-`start filedownloader.batch https://example.com/myfiles.filelist .\temp`
+
+**NOT IMPLEMENTED YET! - Comming soon**<br>
+`start filedownloader.batch https://example.com/myfiles.filelist .\temp`<br>
 (This tool abueses certutil.exe to download the files)
 
 ## Filelist Usage
+
 ```
 https://example.com/downloads/fileA.txt
 #this_will_be_ignored
@@ -38,4 +45,5 @@ If you have such a file, the directory would look like:
 - `world.sh`
 
 # License/ Contributing
+
 Feel free to redistribute or contribute under the terms of the GNU GPL v3 license if you like the project.
