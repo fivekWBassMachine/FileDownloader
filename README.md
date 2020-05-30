@@ -11,11 +11,20 @@ The following commands will download all files in `myfiles.filelist` to the dire
 `./filedownloader.sh https://example.com/myfiles.filelist ./temp`<br>
 (This tool uses requires wget to download the files)
 
+**Tested under:**
+
+- Kubuntu 18.04 LTS \[PC\]
+
 ### Windows
 
 **NOT IMPLEMENTED YET! - Comming soon**<br>
 `start filedownloader.batch https://example.com/myfiles.filelist .\temp`<br>
 (This tool abueses certutil.exe to download the files)
+
+**Tested under:**
+
+- Windows 7 Home Premium SP1 (32 bit) \[VM\]
+- Windows 10 Pro (64 bit) \[PC\]
 
 ## Filelist Usage
 
