@@ -131,7 +131,7 @@ function move_files_in_dir() {
 # downloads a file $1 using wget
 function download_file() {
 	info "Downloading file '$1'..."
-	wget $1
+	wget $1 -O $2
 	if [ $? -eq 0 ]; then
 		success "Done."
 		return 0
