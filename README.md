@@ -27,5 +27,15 @@ https://example.com/downloads/world.sh
 2. Entries starting with `#` will be ignored
 3. Empty lines will be ignored.
 
+### Directory
+
+If you have such a file, the directory would look like:
+
+- `fileA.txt`
+- `fileB.txt`
+- `test.jar`
+- `hello.exe`
+- `world.sh`
+
 # License/ Contributing
 Feel free to redistribute or contribute under the terms of the GNU GPL v3 license if you like the project.
