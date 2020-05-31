@@ -63,22 +63,6 @@ function success() {
 	echo "[✓] [${d}] ${1}" >> $logfile
 }
 
-# display usage of this script
-function show_usage() {
-	echo "$filename copyright 5kWBassMachine 2020"
-	echo "ARGUMENTS:"
-	echo " \$1: url to the files repository (*.filelist)"
-	echo " \$2: path to the download directory"
-	echo "EXIT:"
-	echo " 0:   success"
-	echo " 1:   error"
-	echo " 2:   misusage"
-	echo "LICENSE:"
-	echo " this script comes without any warranty and reliablility"
-	echo " this script is licensed under the gnu general public license"
-	echo " https://www.gnu.org/licenses/gpl-3.0.txt"
-}
-
 # creates dir $1 if not existent
 function create_dir() {
 	if [ ! -d $1 ]; then
@@ -179,14 +163,25 @@ filename=$0
 
 if [ -z $2 ]; then
 	# show usage when less than 2 arguments are given.
-	show_usage
+	echo "$filename copyright 5kWBassMachine 2020"
+	echo "ARGUMENTS:"
+	echo " \$1: url to the files repository (*.filelist)"
+	echo " \$2: path to the download directory"
+	echo "EXIT:"
+	echo " 0:   success"
+	echo " 1:   error"
+	echo " 2:   misusage"
+	echo "LICENSE:"
+	echo " this script comes without any warranty and reliablility"
+	echo " this script is licensed under the gnu general public license"
+	echo " https://www.gnu.org/licenses/gpl-3.0.txt"
 	exit 2
 else
 	# init
 	working_dir=$(pwd)
 	tmp_dir="$working_dir/tmp_`date '+%FT%H-%M-%S'`"
 	
-	# get logdir
+	# get logfile
 	IFS='/' read -ra logfile <<< "$filename"
 	IFS='.' read -ra logfile <<< "${logfile[1]}"
 	logfile=$working_dir/${logfile[0]}.log
@@ -195,7 +190,7 @@ else
 	
 	# create temporary dir & cd to it
 	create_dir $tmp_dir
-	if [ $? -ne 0 ]; then exit 1; fi
+	if [ $? -ne 0 ]; then clean_exit 1; fi
 	
 	cd $tmp_dir
 	if [ $? -ne 0 ]; then error "Can't cd to '$tmp_dir'"; clean_exit 1; fi
@@ -218,13 +213,11 @@ else
 			IFS='/' read -ra url_parts <<< "$url"
 			name=${url_parts[-1]}
 			name=$(urldecode $name)
-			echo $name
 			
 			# download the entry
 			download_file $url $name
 			if [ $? -ne 0 ]; then clean_exit 1; fi
 			
-			echo $name
 			# prove the entry
 			check_checksum $checksum $name
 			if [ $? -ne 0 ]; then clean_exit 1; fi
