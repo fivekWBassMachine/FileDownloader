@@ -26,6 +26,8 @@ import shutil
 import requests
 import hashlib
 import urllib.parse
+import re
+import stat
 
 # return values:
 #  0: success
@@ -38,15 +40,15 @@ def info(message):
 	log("[i] [" + d + "] " + message)
 def error(message):
 	d = datetime.now().isoformat()
-	log("[✗] [" + d + "] " + message)
+	log("[X] [" + d + "] " + message)
 def success(message):
 	d = datetime.now().isoformat()
-	log("[✓] [" + d + "] " + message)
+	log("[+] [" + d + "] " + message)
 def log(m):
 	global logfile
 	print(m)
 	with open(logfile, "a") as f:
-		f.write(m)
+		f.write(m + "\n")
 
 # creates dir $1 if not existent
 def createDir(directory):
@@ -70,8 +72,12 @@ def removeDir(directory):
 			success("Done.")
 			return 0
 		except:
-			error("Can't remove directory.")
-			return 1
+			try:
+				os.chmod(directory, stat.S_IWRITE)
+				os.remove(dorectory)
+			except:
+				error("Can't remove directory.")
+				return 1
 	return 0
 
 # move all files in dir $1 to dir $2
@@ -93,7 +99,7 @@ def moveFilesInDir(src, dst):
 
 # downloads a file $1 using wget
 def downloadFile(url, name):
-	info("Downloading file '" + url + "'...")
+	info("Downloading file '" + url + "' to '" + name + "'...")
 	try:
 		r = requests.get(url)
 		if not r.status_code == 200:
@@ -163,6 +169,7 @@ else:
 	workingDir = os.path.dirname(os.path.realpath(__file__))
 	targetDir = workingDir + os.sep + sys.argv[2]
 	tmpDir = workingDir + os.sep + "tmp_" + datetime.now().strftime("%FT%H-%M-%S") + os.sep
+	fileNameRegex = re.compile("[\\/*?\"<>|]")
 	
 	# get logfile
 	logfile = workingDir + os.sep + __file__.split(os.sep)[-1].split(".")[0] + ".log"
@@ -194,7 +201,7 @@ else:
 			line = line.split("|")
 			checksum = line[0]
 			url = line[1]
-			name = tmpDir + urllib.parse.unquote(url.split("/")[-1])
+			name = tmpDir + re.sub(fileNameRegex, "_", urllib.parse.unquote(url.split("/")[-1]))
 			
 			# download the entry
 			if downloadFile(url, name) == 1:
