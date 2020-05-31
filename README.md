@@ -32,13 +32,16 @@ The following commands will download all files in `myfiles.filelist` to the dire
 
 ## Filelist Usage
 
+`<MD5 CHECKSUM>|<URL>`
+
 ```
-https://example.com/downloads/fileA.txt
+#first_is_the_md5_checksum______|second_is_the_url_to_the_instant_download
+b50d4f3b95d2b885a7e7d8c3834d5a05|https://example.com/downloads/fileA.txt
 #this_will_be_ignored
-https://example.com/downloads/fileB.txt
-https://example.com/downloads/test.jar
-https://example.com/downloads/hello.exe
-https://example.com/downloads/world.sh
+e1bcbbbfd06f24d614cf81136f7cca98|https://example.com/downloads/fileB.txt
+cfb81e893a86d663b9d9111a8579c7b5|https://example.com/downloads/test.jar
+850ca6dde9ecb94c946e0db524105eb3|https://example.com/downloads/hello.exe
+54024193e64c89587a6afb3bbbcd8521|https://example.com/downloads/world.sh
 ```
 
 ### Syntax
