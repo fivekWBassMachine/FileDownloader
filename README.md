@@ -8,7 +8,7 @@ The following commands will download all files in `myfiles.filelist` to the dire
 
 ### Linux
 
-`./filedownloader.sh https://example.com/myfiles.filelist ./temp`<br>
+`./filedownloader.sh https://example.com/myfiles.filelist ./target_dir`<br>
 (This tool uses requires wget to download the files)
 
 **Tested under:**
@@ -17,14 +17,18 @@ The following commands will download all files in `myfiles.filelist` to the dire
 
 ### Windows
 
-**NOT IMPLEMENTED YET! - Comming soon**<br>
-`start filedownloader.batch https://example.com/myfiles.filelist .\temp`<br>
-(This tool abueses certutil.exe to download the files)
+`filedownloader.exe https://example.com/myfiles.filelist target_dir`<br>
+`py -m filedownloader.py https://example.com/myfiles.filelist target_dir`<br>
+(The exe is basically the python script, converted with [pyinstaller](https://www.pyinstaller.org))
 
-**Tested under:**
+**.exe Tested under:**
 
-- Windows 7 Home Premium SP1 (32 bit) \[VM\]
-- Windows 10 Pro (64 bit) \[PC\]
+- Windows 10 Pro (64 bit) \[VM\]
+
+
+**.py Tested under:**
+
+- Windows 10 Pro (64 bit) \[VM\]
 
 ## Filelist Usage
 
