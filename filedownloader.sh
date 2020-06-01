@@ -211,7 +211,7 @@ else
 			IFS='/' read -ra url_parts <<< "$url"
 			name=${url_parts[-1]}
 			name=$(urldecode $name)
-			name=$(escape_spaces $name)
+			name=$(escape_spaces "$name")
 			
 			# download the entry
 			download_file $url $name
