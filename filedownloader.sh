@@ -50,17 +50,17 @@ COL_WHITE='\e[1;37m'
 function info() {
 	d=`date '+%FT%T:%2N'`
 	echo -e "${COL_WHITE}[${COL_BLUE}i${COL_WHITE}]${COL_LGRAY} [${d}]${COL_LGRAY} ${1}${COL_DGRAY}"
-	echo "[i] [${d}] ${1}" >> $logfile
+	echo "[i] [${d}] ${1}\n" >> $logfile
 }
 function error() {
 	d=`date '+%FT%T:%2N'`
 	echo -e "${COL_WHITE}[${COL_RED}✗${COL_WHITE}]${COL_LGRAY} [${d}]${COL_LGRAY} ${1}${COL_DGRAY}"
-	echo "[✗] [${d}] ${1}" >> $logfile
+	echo "[✗] [${d}] ${1}\n" >> $logfile
 }
 function success() {
 	d=`date '+%FT%T:%2N'`
 	echo -e "${COL_WHITE}[${COL_GREEN}✓${COL_WHITE}]${COL_LGRAY} [${d}]${COL_LGRAY} ${1}${COL_DGRAY}"
-	echo "[✓] [${d}] ${1}" >> $logfile
+	echo "[✓] [${d}] ${1}\n" >> $logfile
 }
 
 # creates dir $1 if not existent
@@ -182,9 +182,7 @@ else
 	tmp_dir="$working_dir/tmp_`date '+%FT%H-%M-%S'`"
 	
 	# get logfile
-	IFS='/' read -ra logfile <<< "$filename"
-	IFS='.' read -ra logfile <<< "${logfile[1]}"
-	logfile=$working_dir/${logfile[0]}.log
+	logfile="${working_dir}/${filename}.log"
 	
 	# start real script execution
 	
@@ -213,6 +211,7 @@ else
 			IFS='/' read -ra url_parts <<< "$url"
 			name=${url_parts[-1]}
 			name=$(urldecode $name)
+			name=$(escape_spaces $name)
 			
 			# download the entry
 			download_file $url $name
