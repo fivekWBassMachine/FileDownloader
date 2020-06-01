@@ -214,11 +214,11 @@ else
 			name=$(escape_spaces "$name")
 			
 			# download the entry
-			download_file $url $name
+			download_file $url "$name"
 			if [ $? -ne 0 ]; then clean_exit 1; fi
 			
 			# prove the entry
-			check_checksum $checksum $name
+			check_checksum $checksum "$name"
 			if [ $? -ne 0 ]; then clean_exit 1; fi
 		fi
 	done
