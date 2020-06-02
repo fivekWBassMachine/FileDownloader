@@ -167,6 +167,7 @@ if [ -z $2 ]; then
 	echo "ARGUMENTS:"
 	echo " \$1: url to the files repository (*.filelist)"
 	echo " \$2: path to the download directory"
+	echo " \$3: [optional] when 1, the logfile will be created in parent dir"
 	echo "EXIT:"
 	echo " 0:   success"
 	echo " 1:   error"
@@ -182,7 +183,12 @@ else
 	tmp_dir="$working_dir/tmp_`date '+%FT%H-%M-%S'`"
 	
 	# get logfile
-	logfile="${working_dir}/${filename}.log"
+	if [[ "$3" = "1" ]]; then
+		# support if this is executed by an installer in a temporary directory; log in parent directory
+		logfile="$(dirname working_dir)/${filename}.log"
+	else
+		logfile="${working_dir}/${filename}.log"
+	fi
 	
 	# start real script execution
 	
