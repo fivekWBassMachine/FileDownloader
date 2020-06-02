@@ -199,6 +199,7 @@ else
 	if [ $? -ne 0 ]; then error "Can't download filelist"; clean_exit 1; else success "Done."; fi
 	
 	# iterate through each entry in filelist
+	entries=0
 	for line in $filelist; do
 		if [[ $line == \#* ]]; then
 			# skip entries starting with a '#'
@@ -214,12 +215,14 @@ else
 			name=$(escape_spaces "$name")
 			
 			# download the entry
+			echo $name
 			download_file $url "$name"
 			if [ $? -ne 0 ]; then clean_exit 1; fi
 			
 			# prove the entry
 			check_checksum $checksum "$name"
 			if [ $? -ne 0 ]; then clean_exit 1; fi
+			((entries++))
 		fi
 	done
 	info "All files downloaded and validated."
@@ -233,8 +236,7 @@ else
 	if [ $? -ne 0 ]; then clean_exit 1; fi
 	
 	# success message
-	entries=( $filelist )
-	success "${COL_GREEN}Successfully downloaded and verified ${#entries[@]} files."
+	success "${COL_GREEN}Successfully downloaded and verified $entries files."
 	info "The files are in '$2'"
 	
 	# exit programm
